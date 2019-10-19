@@ -50,11 +50,9 @@ var chart = new Chart(ctx, {
 
 	options: {
 		legend: {
-			display: true
-		},
-
-		gridLines: {
-			drawOnChartArea: true // only want the grid lines for one axis to show up
+			labels: {
+				boxWidth: 0
+			}
 		},
 
 		scales: {
@@ -74,18 +72,12 @@ var chart = new Chart(ctx, {
 					ticks: {
 						reverse: false,
 						display: true
-					}
+					},
+					position: 'top'
 				}
-			],
-			xAxes: [
-				{
-					display: true,
-					position: 'top',
-					id: 'x-axis-1'
-				}
-			],
-			responsive: true,
-			maintainAspectRatio: true
-		}
+			]
+		},
+		responsive: true,
+		maintainAspectRatio: false
 	}
 });

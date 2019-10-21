@@ -96,7 +96,7 @@ var data = {
 	labels: days,
 	datasets: [
 		{
-			label: 'My First dataset',
+			label: 'September 2019',
 			fill: false,
 			lineTension: 0.1,
 			backgroundColor: 'rgba(75,192,192,0.4)',
@@ -114,7 +114,7 @@ var data = {
 			pointHoverBorderWidth: 2,
 			pointRadius: 1,
 			pointHitRadius: 10,
-			data: [ 0, 0, 0, 0, 0, 0, 5, 8 ]
+			data: [ 0, 0, 0, 8, 0, 0, 0, 0 ]
 		}
 	]
 };
@@ -147,6 +147,14 @@ var myChart = new Chart(ctx, {
 			xAxes: [
 				{
 					position: 'top'
+				}
+			],
+			yAxes: [
+				{
+					ticks: {
+						display: false
+					},
+					gridLines: false
 				}
 			]
 		}

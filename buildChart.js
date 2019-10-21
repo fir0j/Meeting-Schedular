@@ -38,17 +38,17 @@ var horizonalLinePlugin = {
 
 				ctx.lineWidth = 20;
 
-				if (startValue) {
+				if (true) {
 					ctx.beginPath();
-					ctx.moveTo(startValue, startValue);
-					ctx.lineTo(endValue, startValue);
+					ctx.moveTo(startValue, line.position);
+					ctx.lineTo(endValue, line.position);
 					ctx.strokeStyle = style;
 					ctx.stroke();
 				}
 
 				if (line.text) {
 					ctx.fillStyle = style;
-					ctx.fillText(line.text, endValue, startValue + ctx.lineWidth);
+					ctx.fillText(line.text, endValue, line.position + ctx.lineWidth);
 				}
 			}
 			return;
@@ -125,18 +125,21 @@ var myChart = new Chart(ctx, {
 	options: {
 		horizontalLine: [
 			{
-				start: 8,
-				end: 12,
+				start: 6,
+				end: 10,
+				position: 75,
 				text: 'subham'
 			},
 			{
-				start: 6,
+				start: 5,
 				end: 9,
+				position: 105,
 				text: 'firoj'
 			},
 			{
 				start: 10,
 				end: 20,
+				position: 115,
 				text: 'neha'
 			}
 		],

@@ -19,7 +19,7 @@ var horizonalLinePlugin = {
 				line = chartInstance.options.horizontalLine[index];
 
 				if (!line.style) {
-					style = 'rgba(169,169,169, .6)';
+					style = 'rgba(255,0,0, .6)';
 				} else {
 					style = line.style;
 				}
@@ -40,7 +40,7 @@ var horizonalLinePlugin = {
 
 				if (startValue) {
 					ctx.beginPath();
-					ctx.moveTo(110, startValue);
+					ctx.moveTo(startValue, startValue);
 					ctx.lineTo(endValue, startValue);
 					ctx.strokeStyle = style;
 					ctx.stroke();
@@ -114,7 +114,7 @@ var data = {
 			pointHoverBorderWidth: 2,
 			pointRadius: 1,
 			pointHitRadius: 10,
-			data: [ 0, 0, 0, 0, 0, 0, 0, 7 ]
+			data: [ 0, 0, 0, 0, 0, 0, 5, 8 ]
 		}
 	]
 };
@@ -125,18 +125,19 @@ var myChart = new Chart(ctx, {
 	options: {
 		horizontalLine: [
 			{
-				start: 4,
+				start: 8,
 				end: 12,
-				style: 'rgba(255, 0, 0, .4)',
 				text: 'subham'
 			},
 			{
-				y: 12,
-				style: '#00ffff'
+				start: 6,
+				end: 9,
+				text: 'firoj'
 			},
 			{
-				y: 21,
-				text: 'min'
+				start: 10,
+				end: 20,
+				text: 'neha'
 			}
 		],
 		scales: {

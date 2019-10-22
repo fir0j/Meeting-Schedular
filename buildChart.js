@@ -4,7 +4,7 @@ var ctx = canvas.getContext('2d');
 var horizonalLinePlugin = {
 	afterDraw: function(chartInstance) {
 		var xScale = chartInstance.scales['x-axis-0'];
-		var yScale = chartInstance.scales['y-axis-0'];
+		// var yScale = chartInstance.scales['y-axis-0'];
 		var canvas = chartInstance.chart;
 		var ctx = canvas.ctx;
 		var index;
@@ -12,11 +12,33 @@ var horizonalLinePlugin = {
 		var style;
 		var startValue;
 		var endValue;
+		var position = 55;
 
 		//accessing options
 		if (chartInstance.options.horizontalLine) {
 			for (index = 0; index < chartInstance.options.horizontalLine.length; index++) {
 				line = chartInstance.options.horizontalLine[index];
+
+				//using id to generate position for allotment
+				var id = line.id;
+				function updatePostion(id, index) {
+					if (id == index + 1) {
+						position += 30;
+					}
+				}
+				updatePostion(id, index);
+
+				function getStart(line) {
+					var start = line.start.toString();
+					start = Number(start.slice(0, 2));
+					return start;
+				}
+
+				function getEnd(line) {
+					var end = line.end.toString();
+					end = Number(end.slice(0, 2));
+					return end;
+				}
 
 				if (!line.style) {
 					style = 'rgba(255,0,0, .6)';
@@ -25,13 +47,13 @@ var horizonalLinePlugin = {
 				}
 
 				if (line.start) {
-					startValue = xScale.getPixelForValue(line.start);
+					startValue = xScale.getPixelForValue(getStart(line));
 				} else {
 					startValue = 0;
 				}
 
 				if (line.end) {
-					endValue = xScale.getPixelForValue(line.end);
+					endValue = xScale.getPixelForValue(getEnd(line));
 				} else {
 					endValue = 0;
 				}
@@ -40,18 +62,17 @@ var horizonalLinePlugin = {
 
 				if (true) {
 					ctx.beginPath();
-					ctx.moveTo(startValue, line.position);
-					ctx.lineTo(endValue, line.position);
+					ctx.moveTo(startValue, position);
+					ctx.lineTo(endValue, position);
 					ctx.strokeStyle = style;
 					ctx.stroke();
 				}
 
-				if (line.text) {
+				if (line.name) {
 					ctx.fillStyle = style;
-					ctx.fillText(line.text, endValue, line.position + ctx.lineWidth);
+					ctx.fillText(line.name, endValue, position + ctx.lineWidth);
 				}
 			}
-			return;
 		}
 	}
 };
@@ -114,7 +135,7 @@ var data = {
 			pointHoverBorderWidth: 2,
 			pointRadius: 1,
 			pointHitRadius: 10,
-			data: [ 0, 0, 0, 8, 0, 0, 0, 0 ]
+			data: [ 0, 0, 0, , 0, 0, 0, 10 ]
 		}
 	]
 };
@@ -125,24 +146,97 @@ var myChart = new Chart(ctx, {
 	options: {
 		horizontalLine: [
 			{
-				start: 6,
-				end: 10,
-				position: 75,
-				text: 'subham'
+				id: 1,
+				name: 'Shubham',
+				start: '01/09/2019',
+				end: '07/09/2019'
 			},
 			{
-				start: 5,
-				end: 9,
-				position: 105,
-				text: 'firoj'
+				id: 2,
+				name: 'Shubham',
+				start: '26/09/2019',
+				end: '28/09/2019'
 			},
 			{
-				start: 10,
-				end: 20,
-				position: 115,
-				text: 'neha'
+				id: 3,
+				name: 'Vivek',
+				start: '09/09/2019',
+				end: '12/09/2019'
+			},
+			{
+				id: 4,
+				name: 'Priya',
+				start: '10/09/2019',
+				end: '12/09/2019'
+			},
+			{
+				id: 5,
+				name: 'Rohan',
+				start: '17/09/2019',
+				end: '19/09/2019'
+			},
+			{
+				id: 6,
+				name: 'Rohan',
+				start: '27/09/2019',
+				end: '29/09/2019'
+			},
+			{
+				id: 7,
+				name: 'Swati',
+				start: '13/09/2019',
+				end: '14/09/2019'
+			},
+			{
+				id: 8,
+				name: 'Swati',
+				start: '29/09/2019',
+				end: '29/09/2019'
+			},
+			{
+				id: 9,
+				name: 'prakash',
+				start: '03/09/2019',
+				end: '07/09/2019'
+			},
+			{
+				id: 10,
+				name: 'abhishek',
+				start: '11/09/2019',
+				end: '11/09/2019'
+			},
+			{
+				id: 11,
+				name: 'Pradeep',
+				start: '09/09/2019',
+				end: '13/09/2019'
+			},
+			{
+				id: 12,
+				name: 'Pradeep',
+				start: '28/09/2019',
+				end: '28/09/2019'
+			},
+			{
+				id: 13,
+				name: 'suhas',
+				start: '20/09/2019',
+				end: '23/09/2019'
+			},
+			{
+				id: 14,
+				name: 'Vishnu',
+				start: '25/09/2019',
+				end: '27/09/2019'
+			},
+			{
+				id: 15,
+				name: 'neha',
+				start: '25/09/2019',
+				end: '28/09/2019'
 			}
 		],
+
 		scales: {
 			xAxes: [
 				{

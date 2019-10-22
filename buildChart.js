@@ -1,5 +1,6 @@
 var canvas = document.getElementById('myChart');
 var ctx = canvas.getContext('2d');
+var busyDays = [];
 
 var horizonalLinePlugin = {
 	afterDraw: function(chartInstance) {
@@ -23,23 +24,54 @@ var horizonalLinePlugin = {
 				var id = line.id;
 				function updatePostion(id, index) {
 					if (id == index + 1) {
-						position += 30;
+						position += 25;
 					}
 				}
 				updatePostion(id, index);
 
-				function getStart(line) {
-					var start = line.start.toString();
+				var start = line.start.toString();
+				function getStart() {
 					start = Number(start.slice(0, 2));
-					return start;
 				}
+				getStart();
 
-				function getEnd(line) {
-					var end = line.end.toString();
+				var end = line.end.toString();
+				function getEnd() {
 					end = Number(end.slice(0, 2));
-					return end;
+				}
+				getEnd();
+
+				for (i = start; i <= end; i++) {
+					busyDays.push(i);
 				}
 
+				//debug it
+				allUniqueDays = [];
+				function uniqueBusyDays() {
+					var uniqueBusyDays = [];
+					for (i = 0; i < days.length; i++) {
+						if (uniqueBusyDays.indexOf(busyDays[i]) === -1) {
+							uniqueBusyDays.push(busyDays[i]);
+						}
+					}
+					return uniqueBusyDays;
+				}
+				allUniqueDays = uniqueBusyDays();
+				console.log(allUniqueDays);
+				//needs debug
+
+				function availableDays() {
+					var availableDays = [];
+					for (i = 1; i <= 30; i++) {
+						if (allUniqueDays.indexOf(i) == -1) {
+							availableDays.push(i);
+						}
+					}
+					return availableDays;
+				}
+				console.log(availableDays());
+
+				availableDays();
 				if (!line.style) {
 					style = 'rgba(255,0,0, .6)';
 				} else {
@@ -47,18 +79,18 @@ var horizonalLinePlugin = {
 				}
 
 				if (line.start) {
-					startValue = xScale.getPixelForValue(getStart(line));
+					startValue = xScale.getPixelForValue(start);
 				} else {
 					startValue = 0;
 				}
 
 				if (line.end) {
-					endValue = xScale.getPixelForValue(getEnd(line));
+					endValue = xScale.getPixelForValue(end);
 				} else {
 					endValue = 0;
 				}
 
-				ctx.lineWidth = 20;
+				ctx.lineWidth = 10;
 
 				if (true) {
 					ctx.beginPath();
@@ -135,7 +167,7 @@ var data = {
 			pointHoverBorderWidth: 2,
 			pointRadius: 1,
 			pointHitRadius: 10,
-			data: [ 0, 0, 0, , 0, 0, 0, 10 ]
+			data: [ 0, 0, 0, 0, 0, 0, 1 ]
 		}
 	]
 };
@@ -254,3 +286,5 @@ var myChart = new Chart(ctx, {
 		}
 	}
 });
+
+console.log(myChart.options.horizontalLine[0].id);

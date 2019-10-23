@@ -78,6 +78,7 @@ let horizonalLinePlugin = {
 				} else {
 					endValue = 0;
 				}
+
 				var w = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
 				let offsetw = 1.5 / 100 * w;
 				console.log(offsetw);
@@ -85,7 +86,7 @@ let horizonalLinePlugin = {
 				if (true) {
 					ctx.beginPath();
 					ctx.moveTo(startValue - offsetw, position);
-					ctx.lineTo(endValue - offsetw, position);
+					ctx.lineTo(endValue - offsetw + 2 * offsetw, position);
 					ctx.strokeStyle = style;
 					ctx.stroke();
 				}

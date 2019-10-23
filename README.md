@@ -8,4 +8,4 @@ for detailed problem statement visit: https://paper.dropbox.com/doc/Internship-A
 ======================================================================================================================
 
 >>> Solution ScreenShot:
-![alt text](http://url/to/img.png)
+![alt text](http://url/to/solutionScreenShot.png)

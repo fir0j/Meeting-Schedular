@@ -1,3 +1,23 @@
+// url = 'https://jsonplaceholder.typicode.com/todos/1';
+url = 'https://totalcloud-static.s3.amazonaws.com/intern.json';
+var getInterData = (url) => {
+	let xhr = new XMLHttpRequest();
+	method = 'GET';
+	xhr.responseType = 'json';
+	xhr.open(method, url, true);
+	xhr.send();
+
+	xhr.onerror = () => {
+		alert('Network Error or CORS issue encountered');
+	};
+
+	xhr.onload = () => {
+		internJSONdata = JSON.stringify(xhr.response);
+		alert(internJSONdata);
+	};
+};
+// getInterData(url);
+
 var canvas = document.getElementById('myChart');
 var ctx = canvas.getContext('2d');
 var busyDays = [];
@@ -176,6 +196,7 @@ var myChart = new Chart(ctx, {
 	type: 'bar',
 	data: data,
 	options: {
+		//using hardcoded internJSONdata because CORS is not installed on your server
 		horizontalLine: [
 			{
 				id: 1,
@@ -287,4 +308,4 @@ var myChart = new Chart(ctx, {
 	}
 });
 
-console.log(myChart.options.horizontalLine[0].id);
+// console.log(myChart.options.horizontalLine[0].id);

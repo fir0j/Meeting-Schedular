@@ -61,35 +61,6 @@ let horizonalLinePlugin = {
 				}
 				getEnd();
 
-				for (let i = start; i <= end; i++) {
-					busyDays.push(i);
-				}
-
-				//debug it
-				allUniqueDays = [];
-				function uniqueBusyDays() {
-					var uniqueBusyDays = [];
-					for (let i = 0; i < days.length; i++) {
-						if (uniqueBusyDays.indexOf(busyDays[i]) === -1) {
-							uniqueBusyDays.push(busyDays[i]);
-						}
-					}
-					return uniqueBusyDays;
-				}
-				allUniqueDays = uniqueBusyDays();
-				//needs debug
-
-				function availableDays() {
-					let availableDays = [];
-					for (let i = 1; i <= 30; i++) {
-						if (allUniqueDays.indexOf(i) == -1) {
-							availableDays.push(i);
-						}
-					}
-					return availableDays;
-				}
-
-				availableDays();
 				if (!line.style) {
 					style = '#e57373';
 				} else {
@@ -107,12 +78,14 @@ let horizonalLinePlugin = {
 				} else {
 					endValue = 0;
 				}
-
+				var w = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
+				let offsetw = 1.5 / 100 * w;
+				console.log(offsetw);
 				ctx.lineWidth = 20;
 				if (true) {
 					ctx.beginPath();
-					ctx.moveTo(startValue, position);
-					ctx.lineTo(endValue, position);
+					ctx.moveTo(startValue - offsetw, position);
+					ctx.lineTo(endValue - offsetw, position);
 					ctx.strokeStyle = style;
 					ctx.stroke();
 				}

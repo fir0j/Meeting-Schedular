@@ -44,7 +44,7 @@ let horizonalLinePlugin = {
 				let id = line.id;
 				function updatePostion(id, index) {
 					if (id == index + 1) {
-						position += 25;
+						position += 40;
 					}
 				}
 				updatePostion(id, index);
@@ -91,7 +91,7 @@ let horizonalLinePlugin = {
 
 				availableDays();
 				if (!line.style) {
-					style = 'rgba(255,0,0, .6)';
+					style = '#e57373';
 				} else {
 					style = line.style;
 				}
@@ -108,7 +108,7 @@ let horizonalLinePlugin = {
 					endValue = 0;
 				}
 
-				ctx.lineWidth = 10;
+				ctx.lineWidth = 20;
 
 				if (true) {
 					ctx.beginPath();
@@ -170,8 +170,8 @@ var data = {
 			label: 'September 2019',
 			fill: false,
 			lineTension: 0.1,
-			backgroundColor: 'rgba(75,192,192,0.4)',
-			borderColor: 'rgba(75,192,192,1)',
+			backgroundColor: 'rgba(61, 193, 211, 1)',
+			borderColor: 'rgba(61, 193, 211, 1.0)',
 			borderCapStyle: 'butt',
 			borderDash: [],
 			borderDashOffset: 0.0,
@@ -194,7 +194,14 @@ var myChart = new Chart(ctx, {
 	type: 'bar',
 	data: data,
 	options: {
-		//using hardcoded internJSONdata because CORS is not installed on your server
+		//using hardcoded internJSONdata because CORS is not installed on the server of the link provider
+		legend: {
+			labels: {
+				boxWidth: 0,
+				color: 'black'
+			}
+		},
+
 		horizontalLine: [
 			{
 				id: 1,
@@ -302,7 +309,9 @@ var myChart = new Chart(ctx, {
 					gridLines: false
 				}
 			]
-		}
+		},
+		responsive: true,
+		maintainAspectRatio: false
 	}
 });
 
@@ -316,7 +325,6 @@ allotedDays = () => {
 			allotedDays.push(j);
 		}
 	}
-	console.log(allotedDays.sort());
 	removeDulicates = () => {
 		noDuplicates = [];
 		for (i = 0; i < allotedDays.length; i++) {
@@ -325,7 +333,6 @@ allotedDays = () => {
 		allotedDays = noDuplicates;
 	};
 	removeDulicates();
-	console.log('no duplicates' + allotedDays.sort());
 	return allotedDays;
 };
 
@@ -342,7 +349,7 @@ availableDays = () => {
 
 // console.log(availableDays());
 
-function addData(myChart, vacantDays) {
+function checkAvaibility(myChart, vacantDays) {
 	myChart.data.datasets.forEach((dataset) => {
 		temp = [];
 		for (i = 0; i < 31; i++) {
@@ -353,8 +360,11 @@ function addData(myChart, vacantDays) {
 			temp.splice(vacantDays[i] - 1, 0, 30);
 		}
 		dataset.data = temp;
-		console.log(temp);
 	});
 	myChart.update();
 }
-addData(myChart, availableDays());
+
+let checkButton = document.querySelector('#checkButton');
+checkButton.addEventListener('click', () => {
+	checkAvaibility(myChart, availableDays());
+});

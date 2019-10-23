@@ -18,22 +18,22 @@ var getInterData = (url) => {
 };
 // getInterData(url);
 
-var canvas = document.getElementById('myChart');
-var ctx = canvas.getContext('2d');
-var busyDays = [];
+let canvas = document.getElementById('myChart');
+let ctx = canvas.getContext('2d');
+let busyDays = [];
 
-var horizonalLinePlugin = {
+let horizonalLinePlugin = {
 	afterDraw: function(chartInstance) {
-		var xScale = chartInstance.scales['x-axis-0'];
+		let xScale = chartInstance.scales['x-axis-0'];
 		// var yScale = chartInstance.scales['y-axis-0'];
-		var canvas = chartInstance.chart;
-		var ctx = canvas.ctx;
-		var index;
-		var line;
-		var style;
-		var startValue;
-		var endValue;
-		var position = 55;
+		let canvas = chartInstance.chart;
+		let ctx = canvas.ctx;
+		let index;
+		let line;
+		let style;
+		let startValue;
+		let endValue;
+		let position = 55;
 
 		//accessing options
 		if (chartInstance.options.horizontalLine) {
@@ -41,7 +41,7 @@ var horizonalLinePlugin = {
 				line = chartInstance.options.horizontalLine[index];
 
 				//using id to generate position for allotment
-				var id = line.id;
+				let id = line.id;
 				function updatePostion(id, index) {
 					if (id == index + 1) {
 						position += 25;
@@ -49,19 +49,19 @@ var horizonalLinePlugin = {
 				}
 				updatePostion(id, index);
 
-				var start = line.start.toString();
+				let start = line.start.toString();
 				function getStart() {
 					start = Number(start.slice(0, 2));
 				}
 				getStart();
 
-				var end = line.end.toString();
+				let end = line.end.toString();
 				function getEnd() {
 					end = Number(end.slice(0, 2));
 				}
 				getEnd();
 
-				for (i = start; i <= end; i++) {
+				for (let i = start; i <= end; i++) {
 					busyDays.push(i);
 				}
 
@@ -69,7 +69,7 @@ var horizonalLinePlugin = {
 				allUniqueDays = [];
 				function uniqueBusyDays() {
 					var uniqueBusyDays = [];
-					for (i = 0; i < days.length; i++) {
+					for (let i = 0; i < days.length; i++) {
 						if (uniqueBusyDays.indexOf(busyDays[i]) === -1) {
 							uniqueBusyDays.push(busyDays[i]);
 						}
@@ -77,19 +77,17 @@ var horizonalLinePlugin = {
 					return uniqueBusyDays;
 				}
 				allUniqueDays = uniqueBusyDays();
-				console.log(allUniqueDays);
 				//needs debug
 
 				function availableDays() {
-					var availableDays = [];
-					for (i = 1; i <= 30; i++) {
+					let availableDays = [];
+					for (let i = 1; i <= 30; i++) {
 						if (allUniqueDays.indexOf(i) == -1) {
 							availableDays.push(i);
 						}
 					}
 					return availableDays;
 				}
-				console.log(availableDays());
 
 				availableDays();
 				if (!line.style) {
@@ -187,7 +185,7 @@ var data = {
 			pointHoverBorderWidth: 2,
 			pointRadius: 1,
 			pointHitRadius: 10,
-			data: [ 0, 0, 0, 0, 0, 0, 1 ]
+			data: []
 		}
 	]
 };
@@ -308,4 +306,55 @@ var myChart = new Chart(ctx, {
 	}
 });
 
-// console.log(myChart.options.horizontalLine[0].id);
+allotedDays = () => {
+	totalInterns = myChart.options.horizontalLine.length;
+	allotedDays = [];
+	for (i = 0; i < totalInterns; i++) {
+		startDay = Number(myChart.options.horizontalLine[i].start.slice(0, 2));
+		endDay = Number(myChart.options.horizontalLine[i].end.slice(0, 2));
+		for (j = startDay; j <= endDay; j++) {
+			allotedDays.push(j);
+		}
+	}
+	console.log(allotedDays.sort());
+	removeDulicates = () => {
+		noDuplicates = [];
+		for (i = 0; i < allotedDays.length; i++) {
+			if (noDuplicates.indexOf(allotedDays[i]) === -1) noDuplicates.push(allotedDays[i]);
+		}
+		allotedDays = noDuplicates;
+	};
+	removeDulicates();
+	console.log('no duplicates' + allotedDays.sort());
+	return allotedDays;
+};
+
+availableDays = () => {
+	availability = [];
+	let ad = allotedDays();
+	for (i = 1; i < 30; i++) {
+		if (ad.indexOf(i) === -1) {
+			availability.push(i);
+		}
+	}
+	return availability;
+};
+
+// console.log(availableDays());
+
+function addData(myChart, vacantDays) {
+	myChart.data.datasets.forEach((dataset) => {
+		temp = [];
+		for (i = 0; i < 31; i++) {
+			temp.push(0);
+		}
+		//inserting element at specific index
+		for (i = 0; i < vacantDays.length; i++) {
+			temp.splice(vacantDays[i] - 1, 0, 30);
+		}
+		dataset.data = temp;
+		console.log(temp);
+	});
+	myChart.update();
+}
+addData(myChart, availableDays());

@@ -109,7 +109,6 @@ let horizonalLinePlugin = {
 				}
 
 				ctx.lineWidth = 20;
-
 				if (true) {
 					ctx.beginPath();
 					ctx.moveTo(startValue, position);
@@ -128,40 +127,13 @@ let horizonalLinePlugin = {
 };
 Chart.pluginService.register(horizonalLinePlugin);
 
-days = [
-	1,
-	2,
-	3,
-	4,
-	5,
-	6,
-	7,
-	8,
-	9,
-	10,
-	11,
-	12,
-	13,
-	14,
-	15,
-	16,
-	17,
-	18,
-	19,
-	20,
-	21,
-	22,
-	23,
-	24,
-	25,
-	26,
-	27,
-	28,
-	29,
-	30,
-	1,
-	2
-];
+//days of the month
+days = [];
+for (i = 1; i <= 30; i++) {
+	days.push(i);
+}
+days.push(1);
+days.push(2);
 
 var data = {
 	labels: days,
@@ -194,7 +166,6 @@ var myChart = new Chart(ctx, {
 	type: 'bar',
 	data: data,
 	options: {
-		//using hardcoded internJSONdata because CORS is not installed on the server of the link provider
 		legend: {
 			labels: {
 				boxWidth: 0,
@@ -202,6 +173,7 @@ var myChart = new Chart(ctx, {
 			}
 		},
 
+		//using hardcoded internJSONdata because CORS is not installed on the server of the link provider
 		horizontalLine: [
 			{
 				id: 1,
@@ -311,7 +283,7 @@ var myChart = new Chart(ctx, {
 			]
 		},
 		responsive: true,
-		maintainAspectRatio: false
+		maintainAspectRatio: true
 	}
 });
 

@@ -1,11 +1,5 @@
 canvas {
-	border: 2px solid black;
-}
-
-div {
-	width: 80%;
-	height: auto;
-	margin: 0 auto;
+	border: 1px solid black;
 }
 
 #checkButton {

@@ -9,4 +9,4 @@ for detailed problem statement visit: https://paper.dropbox.com/doc/Internship-A
 ======================================================================================================================
 
 >>> Solution ScreenShot:
-![alt text](http://url/to/solutionScreenShot.png)
+![alt text](https://github.com/fir0j/TotalCloud-Assessment/blob/master/SolutionScreenShot.png)

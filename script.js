@@ -1,6 +1,8 @@
-// url = 'https://jsonplaceholder.typicode.com/todos/1';
-url = 'https://totalcloud-static.s3.amazonaws.com/intern.json';
-var getInterData = (url) => {
+// Objective 1. On page load make xhr call and download
+
+// testurl = 'https://jsonplaceholder.typicode.com/todos/1';
+totalCloudURL = 'https://totalcloud-static.s3.amazonaws.com/intern.json';
+var getInterData = (totalCloudURL) => {
 	let xhr = new XMLHttpRequest();
 	method = 'GET';
 	xhr.responseType = 'json';
@@ -16,7 +18,11 @@ var getInterData = (url) => {
 		alert(internJSONdata);
 	};
 };
-// getInterData(url);
+// getInterData(totalCloudURL);
+// The sever of the link provided doesn't have CORS facility, so dynamic downloading of intern data won't work with your link.
+// Try installing CORS on your server, the above function will be able easily download the dynamic data
+
+// Objective 2. Convert into suitable data structure and Objective 3. render a table like image below
 
 let canvas = document.getElementById('myChart');
 let ctx = canvas.getContext('2d');
@@ -147,7 +153,10 @@ var myChart = new Chart(ctx, {
 			}
 		},
 
-		//using hardcoded internJSONdata because CORS is not installed on the server of the link provider
+		/* 
+Using hardcoded internJSONdata because CORS is not installed on the server of the link provided for downloading 
+intern data which is an issue from your side, But Still i have already written the function for xhr call in objective 1 for your reference.
+*/
 		horizontalLine: [
 			{
 				id: 1,
@@ -260,6 +269,8 @@ var myChart = new Chart(ctx, {
 		maintainAspectRatio: true
 	}
 });
+
+// Objective 4: On a button click “Check Availability” , highlight the intervals where everyone is available.
 
 allotedDays = () => {
 	totalInterns = myChart.options.horizontalLine.length;
